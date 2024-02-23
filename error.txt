@@ -1,0 +1,23 @@
+WARNING: CPU random generator seem to be failing, disable hardware random number generation
+WARNING: RDRND generated: 0xffffffff 0xffffffff 0xffffffff 0xffffffff
+Traceback (most recent call last):
+  File "start.py", line 8, in <module>
+    claid.start("claid_config.json", "workshop_laptop", "user", "device", module_factory)
+  File "/home/lastchance/.local/lib/python3.8/site-packages/claid/CLAID.py", line 113, in start
+    return self.startCustomSocket("unix:///tmp/claid_socket.grpc", config_file_path, host_id, user_id, device_id, module_factory)
+  File "/home/lastchance/.local/lib/python3.8/site-packages/claid/CLAID.py", line 110, in startCustomSocket
+    self.process_runnables_blocking()
+  File "/home/lastchance/.local/lib/python3.8/site-packages/claid/CLAID.py", line 180, in process_runnables_blocking
+    scheduled_runnable = self.__main_thread_queue.get()
+  File "/home/lastchance/.local/lib/python3.8/site-packages/claid/module/thread_safe_channel.py", line 39, in get
+    self.condition.wait_for(lambda: self.closed or len(self.queue) > 0)
+  File "/usr/lib/python3.8/threading.py", line 337, in wait_for
+    self.wait(waittime)
+  File "/usr/lib/python3.8/threading.py", line 302, in wait
+    waiter.acquire()
+KeyboardInterrupt
+Exception ignored in: <module 'threading' from '/usr/lib/python3.8/threading.py'>
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 1388, in _shutdown
+    lock.acquire()
+KeyboardInterrupt: 
