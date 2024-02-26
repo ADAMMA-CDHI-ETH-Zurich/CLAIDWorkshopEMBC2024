@@ -20,9 +20,14 @@ tf.compat.v1.disable_v2_behavior()
 model_path = 'models/frozen_model.pb'
 graph = tf.Graph()
 
-data = load_csv_data("data.txt", 200)
+data = load_csv_data("data_walking.txt", 200)
 data = data.to_numpy()
 test_data = data[:, 3:]
+test_data = test_data.astype(np.float32)
+print(test_data.dtype)
+
+# print(test_data)
+# exit(0)
 
 with graph.as_default():
     od_graph_def = tf.GraphDef()
@@ -43,8 +48,11 @@ with tf.Session(graph=graph) as sess:
     input_data = [test_data]
 
     # Run inference
+    print("run sess")
     output_data = sess.run(output_tensor, feed_dict={input_tensor: input_data})
 
     # Process the output data as needed
-    print(output_data)
+    index = np.argmax(output_data)
+    labels = ["Downstairs", "Jogging", "Sitting", "Standing", "Upstairs", "Walking"]
+    print(labels[index])
 

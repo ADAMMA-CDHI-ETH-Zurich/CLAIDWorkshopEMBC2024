@@ -28,6 +28,27 @@
           "connect_to": "workshop_smartwatch",
           "modules": [
             {
+              "type": "HARModule",
+              "id": "HARModule",
+              "input_channels": {"InputData" :  "AccelerationData"},
+              "output_channels": {"OutputData" : "ClassificationResult"}
+            },
+            {
+              "type" : "DataSaverModule",
+              "id" : "ClassificationSaver",
+              "input_channels" : {"ClassificationResult" : "ClassificationResult"},
+              "output_channels" : {},
+              "properties":{
+                "storagePath": "classifications",
+                "fileNameFormat" : "test_data.json",
+                "fileType" : "json",
+                "what": "ClassificationResult"
+
+              }
+              
+ 
+            },
+            {
               "type": "AccelerationView",
               "id": "AccelerationView",
               "input_channels": {"InputData" :  "AccelerationData"},
