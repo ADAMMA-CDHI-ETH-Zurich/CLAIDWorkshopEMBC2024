@@ -1,82 +1,37 @@
-{ "hosts": [
-  {
-    "hostname": "workshop_smartwatch",
-    "type": "android",
-    "is_server": true,
-    "host_server_address": "192.168.1.78:1337",
-    "min_log_severity_level": "DEBUG_VERBOSE",
-    "modules": [
+{
+    "hosts": [
       {
-        "type": "AccelerometerCollector",
-        "id": "AccelerometerCollector",
-        "input_channels": {},
-        "output_channels" :
-        {
-          "AccelerationData" : "AccelerationData"
-        },
-        "properties" : {
-          "samplingFrequency": "20",
-          "outputMode": "STREAM"
-        }
+        "hostname": "Smartwatch",
+        "type": "android",
+        "isServer": true,
+        "hostServerAddress": "192.168.1.78:1337",
+        "modules": [
+          {
+            "id": "MyCollector",
+            "type": "AccelerometerCollector",
+            "outputChannels": {
+              "AccelerationData": "connection0"
+            },
+            "properties": {
+              "samplingFrequency": "20",
+              "outputMode": "STREAM"
+            }
+          }
+        ]
       },
       {
-        "type": "GyroscopeCollector",
-        "id": "GyroscopeCollector",
-        "input_channels": {},
-        "output_channels" :
-        {
-          "GyroscopeData" : "GyroscopeData"
-        },
-        "properties" : {
-          "samplingFrequency": "20",
-          "outputMode": "STREAM"
-        }
+        "hostname": "Laptop",
+        "type": "laptop",
+        "connectTo": "Smartwatch",
+        "modules": [
+          {
+            "id": "MyView",
+            "type": "AccelerationView",
+            "inputChannels": {
+              "InputData": "connection0"
+            }
+          }
+        ]
       }
-    ]
-  },
-  {
-    "hostname": "workshop_laptop",
-    "type": "pc",
-    "is_server": false,
-    "connect_to": "workshop_smartwatch",
-    "modules": [
-        {
-        "type" : "DataSaverModule",
-        "id" : "ClassificationSaver",
-        "input_channels" : {"ClassificationResult" : "ClassificationResult"},
-        "output_channels" : {},
-        "properties":{
-          "storagePath": "classifications",
-          "fileNameFormat" : "test_data.json",
-          "fileType" : "json",
-          "what": "ClassificationResult"
-
-        }
-      },
-      {
-        "type" : "HARModule",
-        "id" : "HARModule",
-        "input_channels" : {
-          "AccelerationInputData" : "AccelerationData",
-          "GyroscopeInputData" : "GyroscopeData"
-        },
-        "output_channels": {"OutputData" : "ClassificationResult"}
-      },
-      {
-        "type": "AccelerationView",
-        "id": "AccelerationView",
-        "input_channels": {"InputData" :  "AccelerationData"},
-        "output_channels": {}
-      },
-      {
-        "type": "GyroscopeView",
-        "id": "GyroscopeView",
-        "input_channels": {"InputData" :  "GyroscopeData"},
-        "output_channels": {}
-      }
-
     ]
   }
-
-]
-}
