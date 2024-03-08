@@ -1,17 +1,22 @@
 import tensorflow.compat.v1 as tf
 tf.compat.v1.disable_v2_behavior()
 import numpy as np
-
+import os
 class HumanActivityRecognizer():
 
     def __init__(self):
         super().__init__()
         self.ctr = 0
+        self.recognizer_initialized = False
 
-    def initialize(self):
+    def initialize_recognizer(self):
 
+        current_file_path = os.path.abspath(__file__)
 
-        self.model_path = 'models/har_model.pb'
+        # Get the directory containing the currently executed Python file
+        current_directory = os.path.dirname(current_file_path)
+
+        self.model_path = os.path.join(current_directory, 'models/har_model.pb')
         self.graph = tf.Graph()
 
 
@@ -30,10 +35,14 @@ class HumanActivityRecognizer():
 
         self.required_samples = 5 * 20 # 5 seconds times 20 Hertz
 
+        self.recognizer_initialized = True
+
     def run_inference(self, acceleration_data, gyroscope_data):
         # Downstairs	Jogging	  Sitting	Standing	Upstairs	Walking
         # Generate random float data
         
+        if not self.recognizer_initialized:
+            raise ValueError("Failed to run_inference. Recognizer is not initialized, call initialize_recognizer() first.")
 
         if acceleration_data.shape != (3, self.required_samples):
             raise ValueError("Acceleration data in invalid shape. Required shape {} but got {}.".format((3, self.required_samples), acceleration_data.shape))
