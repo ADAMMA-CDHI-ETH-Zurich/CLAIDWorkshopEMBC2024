@@ -13,4 +13,6 @@ claid.hello_world()
 module_factory = ModuleFactory()
 module_factory.register_all_modules_found_in_path("my_modules")
 module_factory.print_registered_modules()
-claid.start("empty_workshop_config.json", "Laptop", "user", "device", module_factory)
+
+
+designer.start("Laptop", "laptop_user", "device", module_factory)

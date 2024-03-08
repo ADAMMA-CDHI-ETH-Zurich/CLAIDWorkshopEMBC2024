@@ -1,37 +1,22 @@
 {
-    "hosts": [
-      {
-        "hostname": "Smartwatch",
-        "type": "android",
-        "isServer": true,
-        "hostServerAddress": "192.168.1.78:1337",
-        "modules": [
-          {
-            "id": "MyCollector",
-            "type": "AccelerometerCollector",
-            "outputChannels": {
-              "AccelerationData": "connection0"
-            },
-            "properties": {
-              "samplingFrequency": "20",
-              "outputMode": "STREAM"
-            }
-          }
-        ]
-      },
-      {
-        "hostname": "Laptop",
-        "type": "laptop",
-        "connectTo": "Smartwatch",
-        "modules": [
-          {
-            "id": "MyView",
-            "type": "AccelerationView",
-            "inputChannels": {
-              "InputData": "connection0"
-            }
-          }
-        ]
-      }
+  "hosts": [{
+    "hostname": "Laptop",
+    "type": "unix",
+    "is_server": false,
+    "connect_to": "Smartwatch",
+    "modules": [{
+      "type": "TextInputPromptModule",
+      "id": "Test",
+      "output_channels" : {"OutputText": "Test"},
+      "properties": {}
+    }]
+  },
+    {
+      "hostname": "Smartwatch",
+      "host_server_address": "$(workshop_smartwatch_ip_to_replace)",
+      "type": "android",
+      "is_server": true,
+      "connect_to": "",
+      "modules": []}
     ]
-  }
+}
