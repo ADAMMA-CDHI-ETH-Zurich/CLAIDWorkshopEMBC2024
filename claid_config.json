@@ -4,11 +4,13 @@
     "type": "unix",
     "is_server": false,
     "connect_to": "Smartwatch",
+    "min_log_severity_level": "WARNING",
     "modules": [{
       "type": "TextInputPromptModule",
       "id": "Test",
       "output_channels" : {"OutputText": "Test"},
       "properties": {}
+      
     }]
   },
     {

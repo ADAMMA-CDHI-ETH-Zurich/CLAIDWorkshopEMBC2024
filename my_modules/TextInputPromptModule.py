@@ -6,7 +6,7 @@ class TextInputPromptModule(Module):
 
     @staticmethod
     def annotate_module(annotator):
-        annotator.set_module_category("UserInput")
+        annotator.set_module_category("Custom")
         annotator.set_module_description("A Module allowing to post text from the command prompt to a Channel.")
     
         annotator.describe_publish_channel("OutputText", str(), "Channel where inputted text will be posted to.")
