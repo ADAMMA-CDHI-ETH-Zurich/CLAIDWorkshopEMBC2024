@@ -16,16 +16,22 @@ class HumanActivityRecognizer():
         # Get the directory containing the currently executed Python file
         current_directory = os.path.dirname(current_file_path)
 
+
         self.model_path = os.path.join(current_directory, 'models/har_model.pb')
+        if not os.path.isfile(self.model_path):
+            print("Model file {} does not exist".format(self.model_path))
+            return
+        else:
+            print("Model file {} exists!".format(self.model_path))
         self.graph = tf.Graph()
 
 
         with self.graph.as_default():
             od_graph_def = tf.GraphDef()
-            with tf.gfile.GFile(self.model_path, 'rb') as fid:
+            with tf.io.gfile.GFile(self.model_path, 'rb') as fid:
                 serialized_graph = fid.read()
                 od_graph_def.ParseFromString(serialized_graph)
-                tf.import_graph_def(od_graph_def, name='')
+                tf.import_graph_def(od_graph_def, name="")
 
         # Start a session
         self.session = tf.Session(graph=self.graph)
@@ -40,16 +46,16 @@ class HumanActivityRecognizer():
     def run_inference(self, acceleration_data, gyroscope_data):
         # Downstairs	Jogging	  Sitting	Standing	Upstairs	Walking
         # Generate random float data
-        
+
         if not self.recognizer_initialized:
             raise ValueError("Failed to run_inference. Recognizer is not initialized, call initialize_recognizer() first.")
 
         if acceleration_data.shape != (3, self.required_samples):
             raise ValueError("Acceleration data in invalid shape. Required shape {} but got {}.".format((3, self.required_samples), acceleration_data.shape))
-        
+
         if gyroscope_data.shape != (3, self.required_samples):
             raise ValueError("Acceleration data in invalid shape. Required shape {} but got {}.".format((3, self.required_samples), gyroscope_data.shape))
-        
+
         print("Running inference")
 
         # test_data = np.zeros((1, self.required_samples, 6), dtype=np.float32)
@@ -68,7 +74,7 @@ class HumanActivityRecognizer():
         data.extend(gyroscope_data[1,:])
         data.extend(gyroscope_data[2,:])
 
-        
+
         data = np.array(data, dtype=np.float32)
         input_data = data.reshape((1, N_SAMPLES, 6))
 
@@ -78,7 +84,7 @@ class HumanActivityRecognizer():
         # Process the output data as needed
         output_data = output_data[0]
 
-        return output_data 
+        return output_data
 
     def get_label(self, output_data):
         index = np.argmax(output_data)
