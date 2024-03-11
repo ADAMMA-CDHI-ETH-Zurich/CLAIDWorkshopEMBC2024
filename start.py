@@ -115,7 +115,10 @@ class MyApp(QDialog):
 
         if error_message.find("QXcbConnection") != -1:
             return
-        
+
+        if error_message.find("in read_from_module_dispatcher") != -1:
+            return
+
         if error_message == "Traceback (most recent call last):":
             return 
 
