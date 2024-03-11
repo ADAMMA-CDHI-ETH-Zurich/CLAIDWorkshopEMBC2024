@@ -78,6 +78,8 @@ class MyApp(QDialog):
         # if error_message.find("WARNING") != -1:
         #     return
         
+        print(error_message)
+
         if error_message.find("cuda drivers") != -1:
             return
         
@@ -113,6 +115,9 @@ class MyApp(QDialog):
 
         if error_message.find("QXcbConnection") != -1:
             return
+        
+        if error_message == "Traceback (most recent call last):":
+            return 
 
         text = self.text_edit.toPlainText() + error_message
         self.text_edit.setText(text)
