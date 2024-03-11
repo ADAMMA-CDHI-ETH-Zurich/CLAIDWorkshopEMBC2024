@@ -5,12 +5,6 @@ from PyQt5.QtCore import QProcess, Qt
 import os
 import sys
 
-<<<<<<< HEAD
-module_factory = ModuleFactory()
-module_factory.register_all_modules_found_in_path("my_modules")
-module_factory.register_default_modules()
-designer.start("Laptop", "laptop_user", "device", module_factory)
-=======
 python_interpreter_path = sys.executable
 print("Python Interpreter Path:", python_interpreter_path)
 
@@ -173,4 +167,3 @@ if __name__ == "__main__":
 
     while True:
         QApplication.processEvents()
->>>>>>> refs/remotes/origin/main
