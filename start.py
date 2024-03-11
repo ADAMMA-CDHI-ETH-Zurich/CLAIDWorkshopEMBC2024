@@ -49,7 +49,7 @@ class MyApp(QDialog):
             self.process = QProcess(self)
             self.process.readyReadStandardError.connect(self.read_error)
             self.process.finished.connect(self.exit_application)
-            self.process.start('python start_designer.py')
+            self.process.start('{} no_error_monitor_start.py'.format(python_interpreter_path))
 
 
         except Exception as e:
