@@ -48,12 +48,18 @@ class MyApp(QDialog):
             # Replace 'your_command_here' with the actual command you want to run
             self.process = QProcess(self)
             self.process.readyReadStandardError.connect(self.read_error)
-            self.process.finished.connect(self.exit_application)
-            self.process.start('{} no_error_monitor_start.py'.format(python_interpreter_path))
+            self.process.finished.connect(self.on_process_finished)
+            self.process.start('{} launch_claid_and_designer.py'.format(python_interpreter_path))
 
 
         except Exception as e:
             self.show_error_dialog(f"An error occurred: {str(e)}")
+
+    def on_process_finished(self, exit_code, exit_status):
+        print(f"Subprocess finished with exit code: {exit_code}, exit status: {exit_status}")
+        if exit_code == 0 and exit_status == 0:
+            # Designer exited friendly.
+            os._exit(0)
 
     def read_error(self):
         error_line = self.process.readAllStandardError().data().decode().strip()
