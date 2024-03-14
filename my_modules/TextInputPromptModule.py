@@ -18,7 +18,7 @@ class TextInputPromptModule(Module):
         print("MyModule Hello!")
         self.output_channel = self.publish("OutputText", str())
 
-        self.register_scheduled_function("InputPrompt", datetime.now() + timedelta(milliseconds=3000), self.prompt_input)
+        self.register_scheduled_function("InputPrompt", self.prompt_input, datetime.now() + timedelta(milliseconds=3000))
 
     def prompt_input(self):
         text = input("Input your text: ")
@@ -28,7 +28,7 @@ class TextInputPromptModule(Module):
         
         print("Outputting text ", text)
         self.output_channel.post(text)
-        self.register_scheduled_function("InputPrompt", datetime.now() + timedelta(milliseconds=1000), self.prompt_input)
+        self.register_scheduled_function("InputPrompt", self.prompt_input, datetime.now() + timedelta(milliseconds=3000))
 
 
 
