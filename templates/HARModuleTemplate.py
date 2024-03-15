@@ -68,7 +68,7 @@ class HARModule(Module):
 
         # if(len(self.acc_xs) >= self.required_samples and len(self.gyro_xs) >= self.required_samples):
 
-            # Make sure both acceleration and gyroscope data have shape [3, 200]
+            # Make sure both acceleration and gyroscope data have shape [3, 100]
             # output_data = self.recognizer.run_inference(your_acceleration_data,\
             #                                             your_gyroscope_data)
             # label = self.recognizer.get_label(output_data)
