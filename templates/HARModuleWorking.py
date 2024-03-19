@@ -95,7 +95,7 @@ class HARModule(Module):
                                                         np.array([self.gyro_xs, self.gyro_ys, self.gyro_zs]))
             label = self.recognizer.get_label(output_data)
             
-            self.output_channel.post(label + " " + str(self.ctr))
+            self.output_channel.post(label)
 
             self.acc_xs = self.acc_xs[-60:]
             self.acc_ys = self.acc_ys[-60:]
