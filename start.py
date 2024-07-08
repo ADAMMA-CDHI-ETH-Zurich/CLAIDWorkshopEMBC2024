@@ -125,6 +125,9 @@ class MyApp(QDialog):
         if error_message.find("in read_from_module_dispatcher") != -1:
             return
 
+        if error_message.find("return self._next()") != -1:
+            return
+
         if error_message == "Traceback (most recent call last):":
             return 
 
