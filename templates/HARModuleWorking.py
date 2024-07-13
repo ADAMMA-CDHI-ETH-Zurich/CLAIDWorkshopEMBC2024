@@ -24,7 +24,10 @@ class HARModule(Module):
         annotator.describe_subscribe_channel("GyroscopeInputData", GyroscopeData(), "Gyroscope input data")
         annotator.describe_publish_channel("OutputDataLabel", str(), "Output data")
 
-
+        annotator.make_injectable()
+        annotator.add_dependency("human_activity_recognition/human_activity_recognizer.py")
+        annotator.add_dependency("human_activity_recognition/models/har_model.pb")
+        
     def __init__(self):
         super().__init__()
         self.ctr = 0
